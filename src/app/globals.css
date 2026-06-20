@@ -1,0 +1,80 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* --- CONFIGURACIÓN BASE Y FUENTES --- */
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  
+  body {
+    @apply antialiased selection:bg-purple-500 selection:text-white;
+  }
+
+  h1, h2, h3 {
+    @apply tracking-tight font-bold;
+  }
+}
+
+/* --- UTILIDADES PERSONALIZADAS --- */
+@layer components {
+  .glass-panel {
+    @apply backdrop-blur-xl bg-white/5 border border-white/10 shadow-2xl;
+  }
+  
+  .neon-glow {
+    box-shadow: 0 0 20px rgba(168, 85, 247, 0.4);
+  }
+}
+
+/* --- ANIMACIONES EXTRA --- */
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}/* --- OPTIMIZACIÓN MÓVIL --- */
+@media (max-width: 768px) {
+  /* Ajustar tamaños de texto en móviles */
+  h1 {
+    font-size: 2.5rem !important;
+  }
+  
+  h2 {
+    font-size: 2rem !important;
+  }
+
+  /* Mejorar espaciado en móviles */
+  .space-y-32 {
+    gap: 2rem !important;
+  }
+
+  /* Ajustar botones flotantes */
+  .fixed.right-4 {
+    right: 0.5rem !important;
+  }
+
+  /* Mejorar legibilidad en menús */
+  .grid-cols-1 {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+/* --- PREVENIR ZOOM EN INPUTS EN iOS --- */
+input, select, textarea {
+  font-size: 16px !important;
+}
+
+/* --- MEJORAR SCROLL EN MÓVILES --- */
+html {
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* --- PREVENIR CLIC ACCIDENTAL EN BOTONES --- */
+button, a {
+  -webkit-tap-highlight-color: transparent;
+}
