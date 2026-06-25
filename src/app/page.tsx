@@ -9,6 +9,7 @@ import {
 } from "lucide-react";
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "@/lib/firebase";
+import { QRCodeSVG } from "qrcode.react";
 
 // --- DATOS DEL MENÚ DIURNO ---
 const menuDataDefault = {
@@ -307,14 +308,14 @@ export default function Home() {
   const cls = (...classes: string[]) => classes.filter(Boolean).join(" ");
 
   const fadeInUp = {
-    hidden: { opacity: 0, y: 40 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: "easeOut" } },
-  };
+  hidden: { opacity: 0, y: 40 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: "easeOut" as const } },
+};
 
-  const staggerContainer = {
-    hidden: { opacity: 0 },
-    visible: { opacity: 1, transition: { staggerChildren: 0.2 } },
-  };
+const staggerContainer = {
+  hidden: { opacity: 0 },
+  visible: { opacity: 1, transition: { staggerChildren: 0.2 } },
+};
 
   const contacto = turno === "dia" 
     ? { whatsapp: "3878541224", fijo: "3878770614" }
@@ -416,7 +417,7 @@ export default function Home() {
               "inline-block px-4 py-1 rounded-full text-xs font-bold tracking-widest uppercase border",
               turno === "dia" ? "border-orange-200 bg-orange-50 text-orange-700" : "border-purple-500/40 bg-purple-900/20 text-purple-300"
             )}>
-              {turno === "dia" ? "Experiencia Diurna • Asado & Tradición" : "Experiencia Nocturna • Tragos & Fiesta"}
+              {turno === "dia" ? "MENÚS DIARIOS • ASADOS DE FIN DE SEMANA • SABOR CASERO" : "Experiencia Nocturna • Tragos & Fiesta"}
             </motion.div>
 
             <motion.h1 variants={fadeInUp} className="text-6xl md:text-8xl font-black leading-tight tracking-tighter">
@@ -429,7 +430,7 @@ export default function Home() {
 
             <motion.p variants={fadeInUp} className="text-xl md:text-2xl max-w-2xl mx-auto font-light opacity-80 leading-relaxed">
               {turno === "dia" 
-                ? "Disfrutá del mejor asado a la parrilla, milanesas crocantes y menús ejecutivos bajo el sol." 
+                ? "De Lunes a Viernes el Menú Ejecutivo mas completo y Económico. Sábados y Domingos, El autentico Ritual del Mejor Asado y Pollo al Horno. Rápido, Rico y Bien Argentino" 
                 : "Viví la noche con cócteles de autor, picadas premium, DJ en vivo y la mejor vibra de la ciudad."}
             </motion.p>
 
@@ -468,7 +469,7 @@ export default function Home() {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <AnimatePresence mode="wait">
-              {menuData[turno]?.map((item, index) => (
+              {menuData[turno]?.map((item: { id: number; nombre: string; desc: string; precio: string; img: string }, index: number) => (
                 <motion.div
                   key={`${turno}-${item.id}`}
                   initial={{ opacity: 0, y: 50 }}
@@ -616,62 +617,82 @@ export default function Home() {
         </section>
 
         {/* --- SECCIÓN DESCARGAR APP --- */}
-        <section className={cls(
-          "py-20 rounded-[3rem] px-8 md:px-16 flex flex-col md:flex-row items-center justify-between gap-12 overflow-hidden relative",
-          turno === "dia" ? "bg-gradient-to-br from-orange-50 to-stone-100 border-2 border-orange-200" : "bg-gradient-to-br from-purple-900/60 to-black border-2 border-purple-500/40"
-        )}>
-          <div className="relative z-10 max-w-xl space-y-6 text-center md:text-left">
-            <div className={cls("inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-bold uppercase tracking-wider", turno === "dia" ? "bg-orange-200 text-orange-800" : "bg-purple-500/30 text-purple-200")}>
-              <Star size={16} /> La Experiencia Completa
-            </div>
-            <h2 className="text-4xl md:text-5xl font-black leading-tight">
-              Descargá nuestra App
-            </h2>
-            <p className="text-lg opacity-90 leading-relaxed">
-              Pedí desde tu celular de forma rápida y fácil. Acumulá puntos, accedé a promociones exclusivas y hacé tu pedido en segundos. ¡Sin esperas!
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 pt-4 justify-center md:justify-start">
-              <button className={cls(
-                "px-8 py-4 rounded-2xl font-bold flex items-center justify-center gap-3 transition-all transform hover:scale-105 shadow-xl",
-                turno === "dia" ? "bg-black text-white hover:bg-stone-800" : "bg-white text-black hover:bg-stone-100"
-              )}>
-                <Download size={24} /> 
-                <div className="text-left">
-                  <div className="text-xs opacity-80">Descargar en</div>
-                  <div className="text-lg leading-none">App Store</div>
-                </div>
-              </button>
-              <button className={cls(
-                "px-8 py-4 rounded-2xl font-bold flex items-center justify-center gap-3 transition-all transform hover:scale-105 shadow-xl",
-                turno === "dia" ? "bg-black text-white hover:bg-stone-800" : "bg-white text-black hover:bg-stone-100"
-              )}>
-                <Download size={24} />
-                <div className="text-left">
-                  <div className="text-xs opacity-80">Disponible en</div>
-                  <div className="text-lg leading-none">Google Play</div>
-                </div>
-              </button>
-            </div>
-          </div>
-          
-          {/* QR Code Visual */}
-          <motion.div 
-            initial={{ opacity: 0, scale: 0.8 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true }}
-            className="relative"
-          >
-            <div className={cls(
-              "w-72 h-72 rounded-3xl border-8 flex items-center justify-center shadow-2xl transform rotate-[-6deg] hover:rotate-0 transition-transform duration-500 bg-white",
-              turno === "dia" ? "border-orange-300" : "border-purple-500"
-            )}>
-              <QrCode size={160} className={turno === "dia" ? "text-orange-600" : "text-purple-600"} />
-            </div>
-            <div className="absolute -bottom-8 left-1/2 -translate-x-1/2 bg-white text-black px-6 py-2 rounded-full text-sm font-bold shadow-lg whitespace-nowrap">
-              Escaneá para descargar
-            </div>
-          </motion.div>
-        </section>
+<section className={cls(
+  "py-20 rounded-[3rem] px-8 md:px-16 flex flex-col md:flex-row items-center justify-between gap-12 overflow-hidden relative",
+  turno === "dia" ? "bg-gradient-to-br from-orange-50 to-stone-100 border-2 border-orange-200" : "bg-gradient-to-br from-purple-900/60 to-black border-2 border-purple-500/40"
+)}>
+  <div className="relative z-10 max-w-xl space-y-6 text-center md:text-left">
+    <div className={cls("inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-bold uppercase tracking-wider", turno === "dia" ? "bg-orange-200 text-orange-800" : "bg-purple-500/30 text-purple-200")}>
+      <Star size={16} /> La Experiencia Completa
+    </div>
+    <h2 className="text-4xl md:text-5xl font-black leading-tight">
+      Hacé tu pedido online
+    </h2>
+    <p className="text-lg opacity-90 leading-relaxed">
+      Pedí desde tu celular de forma rápida y fácil. Acumulá puntos, accedé a promociones exclusivas y hacé tu pedido en segundos. ¡Sin esperas!
+    </p>
+    
+    {/* Botón principal: Abrir App */}
+    <div className="flex flex-col sm:flex-row gap-4 pt-4 justify-center md:justify-start">
+      <a 
+        href="https://app.inevarestobar.com.ar" 
+        target="_blank" 
+        rel="noopener noreferrer"
+        className={cls(
+          "px-8 py-4 rounded-2xl font-bold flex items-center justify-center gap-3 transition-all transform hover:scale-105 shadow-xl",
+          turno === "dia" ? "bg-orange-600 text-white hover:bg-orange-700" : "bg-gradient-to-r from-purple-600 to-pink-600 text-white hover:from-purple-700 hover:to-pink-700"
+        )}
+      >
+        <Utensils size={24} /> 
+        <div className="text-left">
+          <div className="text-xs opacity-80">Abrir</div>
+          <div className="text-lg leading-none">App de Pedidos</div>
+        </div>
+      </a>
+      
+      <button 
+        onClick={() => setReservaOpen(true)}
+        className={cls(
+          "px-8 py-4 rounded-2xl font-bold flex items-center justify-center gap-3 transition-all transform hover:scale-105 border-2",
+          turno === "dia" ? "border-orange-600 text-orange-600 hover:bg-orange-50" : "border-purple-500 text-purple-300 hover:bg-purple-900/20"
+        )}
+      >
+        <Calendar size={24} />
+        <div className="text-left">
+          <div className="text-xs opacity-80">Reservar</div>
+          <div className="text-lg leading-none">Una Mesa</div>
+        </div>
+      </button>
+    </div>
+    
+    <p className="text-sm opacity-70 mt-4">
+      También podés escanear el código QR con la cámara de tu celular
+    </p>
+  </div>
+  
+  {/* QR Code Real */}
+  <motion.div 
+    initial={{ opacity: 0, scale: 0.8 }}
+    whileInView={{ opacity: 1, scale: 1 }}
+    viewport={{ once: true }}
+    className="relative"
+  >
+    <div className={cls(
+      "w-72 h-72 rounded-3xl border-8 flex items-center justify-center shadow-2xl transform rotate-[-6deg] hover:rotate-0 transition-transform duration-500 bg-white p-6",
+      turno === "dia" ? "border-orange-300" : "border-purple-500"
+    )}>
+      <QRCodeSVG 
+        value="https://app.inevarestobar.com.ar" 
+        size={220}
+        level="H"
+        includeMargin={true}
+      />
+    </div>
+    <div className="absolute -bottom-8 left-1/2 -translate-x-1/2 bg-white text-black px-6 py-2 rounded-full text-sm font-bold shadow-lg whitespace-nowrap">
+      📱 Escaneá para abrir la App
+    </div>
+  </motion.div>
+</section>
 
         {/* --- SECCIÓN CONTÁCTANOS --- */}
         <section className={cls(
