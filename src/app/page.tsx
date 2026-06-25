@@ -435,12 +435,17 @@ const staggerContainer = {
             </motion.p>
 
             <motion.div variants={fadeInUp} className="flex flex-wrap gap-4 justify-center pt-8">
-              <button 
-                onClick={handleVerCarta}
-                className={cls(
-                  "px-8 py-4 rounded-full font-bold text-lg transition-all transform hover:scale-105 hover:shadow-xl flex items-center gap-2 cursor-pointer",
-                  turno === "dia" ? "bg-orange-600 text-white hover:bg-orange-700 shadow-orange-500/30" : "bg-gradient-to-r from-purple-600 to-pink-600 text-white hover:from-purple-500 hover:to-pink-500 shadow-purple-500/40"
-                )}><Utensils size={20} /> Ver Carta {turno === "dia" ? "Diurna" : "Nocturna"}</button>
+              <a 
+  href="https://app.inevarestobar.com.ar"
+  target="_blank"
+  rel="noopener noreferrer"
+  className={cls(
+    "px-8 py-4 rounded-full font-bold text-lg transition-all transform hover:scale-105 hover:shadow-xl flex items-center gap-2 cursor-pointer",
+    turno === "dia" ? "bg-orange-600 text-white hover:bg-orange-700 shadow-orange-500/30" : "bg-gradient-to-r from-purple-600 to-pink-600 text-white hover:from-purple-500 hover:to-pink-500 shadow-purple-500/40"
+  )}>
+  <Utensils size={20} /> 
+  {turno === "dia" ? "🍽️ Pedir Menú Diurno" : "🍸 Pedir Menú Nocturno"}
+</a>
               
               <button 
                 onClick={() => setReservaOpen(true)}
