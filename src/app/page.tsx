@@ -483,13 +483,21 @@ const staggerContainer = {
               {turno === "dia" ? "MENÚS DIARIOS • ASADOS DE FIN DE SEMANA • SABOR CASERO" : "Experiencia Nocturna • Tragos & Fiesta"}
             </motion.div>
 
-            <motion.h1 variants={fadeInUp} className="text-6xl md:text-8xl font-black leading-tight tracking-tighter">
-              DOS MUNDOS. <br />
-              <span className={cls(
-                "bg-clip-text text-transparent bg-gradient-to-r",
-                turno === "dia" ? "from-orange-500 to-red-600" : "from-purple-500 via-pink-500 to-cyan-400"
-              )}>UN SOLO LUGAR.</span>
-            </motion.h1>
+            <motion.h1 variants={fadeInUp} className="text-6xl md:text-8xl font-black leading-tight tracking-tighter flex items-center justify-center gap-4 flex-wrap">
+  {MOSTRAR_ELEMENTOS_MUNDIAL && (
+    <span className="bandera-flameando text-6xl md:text-7xl inline-block">🇦🇷</span>
+  )}
+  <span className="flex flex-col items-center">
+    DOS MUNDOS. <br />
+    <span className={cls(
+      "bg-clip-text text-transparent bg-gradient-to-r",
+      turno === "dia" ? "from-orange-500 to-red-600" : "from-purple-500 via-pink-500 to-cyan-400"
+    )}>UN SOLO LUGAR.</span>
+  </span>
+  {MOSTRAR_ELEMENTOS_MUNDIAL && (
+    <span className="bandera-flameando text-6xl md:text-7xl inline-block" style={{ animationDelay: '2s' }}>🇷</span>
+  )}
+</motion.h1>
 
             <motion.p variants={fadeInUp} className="text-xl md:text-2xl max-w-2xl mx-auto font-light opacity-80 leading-relaxed">
               {turno === "dia" 
@@ -912,6 +920,28 @@ const staggerContainer = {
             </p>
           </div>
         </section>
+
+                {/* --- ESTILOS BANDERA FLAMEANDO --- */}
+        <style>{`
+          @keyframes flamear {
+            0%, 100% {
+              transform: rotate(-3deg) skewX(0deg);
+            }
+            25% {
+              transform: rotate(2deg) skewX(2deg);
+            }
+            50% {
+              transform: rotate(-2deg) skewX(-1deg);
+            }
+            75% {
+              transform: rotate(3deg) skewX(1deg);
+            }
+          }
+          .bandera-flameando {
+            animation: flamear 4s ease-in-out infinite;
+            transform-origin: left center;
+          }
+        `}</style>
 
       </main>
     </div>
