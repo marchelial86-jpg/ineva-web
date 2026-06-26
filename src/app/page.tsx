@@ -100,6 +100,13 @@ const menuDataDefault = {
       precio: "$5.000", 
       img: "https://i.ibb.co/YTk9DQT2/baylis.jpg"
     },
+    { 
+      id: 13, 
+      nombre: "Picada Ineva", 
+      desc: "Promo Picada Ineva Mas Coca de 1 Litro.", 
+      precio: "info", 
+      img: "https://i.ibb.co/23WVdbzn/picadaineva.jpg"
+    },
   ]
 };
 
@@ -496,13 +503,13 @@ const staggerContainer = {
                     </div>
                   </div>
                   <div className="p-6 flex justify-between items-center">
-                    <span className={cls("text-2xl font-black", turno === "dia" ? "text-orange-600" : "text-purple-400")}>{item.precio}</span>
+                    {/* PRECIO ELIMINADO - Solo se muestra en la app */}
                     <button 
                       onClick={() => handleAgregarProducto(item.nombre)}
                       className={cls(
                         "px-6 py-2 rounded-full font-bold text-sm transition-all transform hover:scale-105",
                         turno === "dia" ? "bg-stone-900 text-white hover:bg-orange-600" : "bg-purple-600 text-white hover:bg-pink-600"
-                      )}>Agregar</button>
+                      )}>Ver en App</button>
                   </div>
                 </motion.div>
               ))}
@@ -631,13 +638,13 @@ const staggerContainer = {
       <Star size={16} /> La Experiencia Completa
     </div>
     <h2 className="text-4xl md:text-5xl font-black leading-tight">
-      Hacé tu pedido online
+      Descargá nuestra App
     </h2>
     <p className="text-lg opacity-90 leading-relaxed">
-      Pedí desde tu celular de forma rápida y fácil. Acumulá puntos, accedé a promociones exclusivas y hacé tu pedido en segundos. ¡Sin esperas!
+      Escaneá el código QR y descargá nuestra app para ver todos los precios, 
+      hacer tus pedidos y acceder a promociones exclusivas.
     </p>
     
-    {/* Botón principal: Abrir App */}
     <div className="flex flex-col sm:flex-row gap-4 pt-4 justify-center md:justify-start">
       <a 
         href="https://app.inevarestobar.com.ar" 
@@ -648,31 +655,29 @@ const staggerContainer = {
           turno === "dia" ? "bg-orange-600 text-white hover:bg-orange-700" : "bg-gradient-to-r from-purple-600 to-pink-600 text-white hover:from-purple-700 hover:to-pink-700"
         )}
       >
-        <Utensils size={24} /> 
+        <Download size={24} /> 
         <div className="text-left">
-          <div className="text-xs opacity-80">Abrir</div>
-          <div className="text-lg leading-none">App de Pedidos</div>
+          <div className="text-xs opacity-80">Descargar en</div>
+          <div className="text-lg leading-none">App Store</div>
         </div>
       </a>
       
-      <button 
-        onClick={() => setReservaOpen(true)}
+      <a 
+        href="https://app.inevarestobar.com.ar" 
+        target="_blank" 
+        rel="noopener noreferrer"
         className={cls(
-          "px-8 py-4 rounded-2xl font-bold flex items-center justify-center gap-3 transition-all transform hover:scale-105 border-2",
-          turno === "dia" ? "border-orange-600 text-orange-600 hover:bg-orange-50" : "border-purple-500 text-purple-300 hover:bg-purple-900/20"
+          "px-8 py-4 rounded-2xl font-bold flex items-center justify-center gap-3 transition-all transform hover:scale-105 shadow-xl",
+          turno === "dia" ? "bg-black text-white hover:bg-stone-800" : "bg-white text-black hover:bg-stone-100"
         )}
       >
-        <Calendar size={24} />
+        <Download size={24} />
         <div className="text-left">
-          <div className="text-xs opacity-80">Reservar</div>
-          <div className="text-lg leading-none">Una Mesa</div>
+          <div className="text-xs opacity-80">Disponible en</div>
+          <div className="text-lg leading-none">Google Play</div>
         </div>
-      </button>
+      </a>
     </div>
-    
-    <p className="text-sm opacity-70 mt-4">
-      También podés escanear el código QR con la cámara de tu celular
-    </p>
   </div>
   
   {/* QR Code Real */}
@@ -694,7 +699,7 @@ const staggerContainer = {
       />
     </div>
     <div className="absolute -bottom-8 left-1/2 -translate-x-1/2 bg-white text-black px-6 py-2 rounded-full text-sm font-bold shadow-lg whitespace-nowrap">
-      📱 Escaneá para abrir la App
+      📱 Escaneá para descargar la App
     </div>
   </motion.div>
 </section>
