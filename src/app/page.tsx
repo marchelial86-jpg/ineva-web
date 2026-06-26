@@ -12,7 +12,7 @@ import { db } from "@/lib/firebase";
 import { QRCodeSVG } from "qrcode.react";
 
 // ============================================
-// 🇷 BANDERA DE CONTROL - MUNDIAL ARGENTINA
+// 🇦 BANDERA DE CONTROL - MUNDIAL ARGENTINA
 // ============================================
 const MOSTRAR_ELEMENTOS_MUNDIAL = true; // Cambiar a false para ocultar todo
 
@@ -397,7 +397,7 @@ const staggerContainer = {
           >
             <div className="flex items-center justify-center gap-2 text-sky-700 font-bold text-sm md:text-base">
               <span className="text-2xl">🏆</span>
-              <span>🇦🇷 Ineva te acompaña en el Mundial 🇦🇷</span>
+              <span>🇦 Ineva te acompaña en el Mundial 🇦🇷</span>
               <span className="text-2xl">⚽</span>
             </div>
           </motion.div>
@@ -484,20 +484,29 @@ const staggerContainer = {
             </motion.div>
 
             <motion.h1 variants={fadeInUp} className="text-6xl md:text-8xl font-black leading-tight tracking-tighter flex items-center justify-center gap-4 flex-wrap">
-  {MOSTRAR_ELEMENTOS_MUNDIAL && (
-    <span className="bandera-flameando text-6xl md:text-7xl inline-block">🇦🇷</span>
-  )}
-  <span className="flex flex-col items-center">
-    DOS MUNDOS. <br />
-    <span className={cls(
-      "bg-clip-text text-transparent bg-gradient-to-r",
-      turno === "dia" ? "from-orange-500 to-red-600" : "from-purple-500 via-pink-500 to-cyan-400"
-    )}>UN SOLO LUGAR.</span>
-  </span>
-  {MOSTRAR_ELEMENTOS_MUNDIAL && (
-    <span className="bandera-flameando text-6xl md:text-7xl inline-block" style={{ animationDelay: '2s' }}>🇷</span>
-  )}
-</motion.h1>
+              {MOSTRAR_ELEMENTOS_MUNDIAL && (
+                <img 
+                  src="https://flagcdn.com/w320/ar.png" 
+                  alt="Bandera Argentina" 
+                  className="bandera-flameando w-16 h-12 md:w-24 md:h-16 object-cover rounded shadow-lg"
+                />
+              )}
+              <span className="flex flex-col items-center">
+                DOS MUNDOS. <br />
+                <span className={cls(
+                  "bg-clip-text text-transparent bg-gradient-to-r",
+                  turno === "dia" ? "from-orange-500 to-red-600" : "from-purple-500 via-pink-500 to-cyan-400"
+                )}>UN SOLO LUGAR.</span>
+              </span>
+              {MOSTRAR_ELEMENTOS_MUNDIAL && (
+                <img 
+                  src="https://flagcdn.com/w320/ar.png" 
+                  alt="Bandera Argentina" 
+                  className="bandera-flameando w-16 h-12 md:w-24 md:h-16 object-cover rounded shadow-lg"
+                  style={{ animationDelay: '2s' }}
+                />
+              )}
+            </motion.h1>
 
             <motion.p variants={fadeInUp} className="text-xl md:text-2xl max-w-2xl mx-auto font-light opacity-80 leading-relaxed">
               {turno === "dia" 
@@ -921,7 +930,7 @@ const staggerContainer = {
           </div>
         </section>
 
-                {/* --- ESTILOS BANDERA FLAMEANDO --- */}
+        {/* --- ESTILOS BANDERA FLAMEANDO --- */}
         <style>{`
           @keyframes flamear {
             0%, 100% {
