@@ -638,13 +638,13 @@ const staggerContainer = {
       <Star size={16} /> La Experiencia Completa
     </div>
     <h2 className="text-4xl md:text-5xl font-black leading-tight">
-      Descargá nuestra App
+      Hacé tu pedido online
     </h2>
     <p className="text-lg opacity-90 leading-relaxed">
-      Escaneá el código QR y descargá nuestra app para ver todos los precios, 
-      hacer tus pedidos y acceder a promociones exclusivas.
+      Pedí desde tu celular de forma rápida y fácil. Acumulá puntos, accedé a promociones exclusivas y hacé tu pedido en segundos. ¡Sin esperas!
     </p>
     
+    {/* Botón principal: Abrir App */}
     <div className="flex flex-col sm:flex-row gap-4 pt-4 justify-center md:justify-start">
       <a 
         href="https://app.inevarestobar.com.ar" 
@@ -655,29 +655,31 @@ const staggerContainer = {
           turno === "dia" ? "bg-orange-600 text-white hover:bg-orange-700" : "bg-gradient-to-r from-purple-600 to-pink-600 text-white hover:from-purple-700 hover:to-pink-700"
         )}
       >
-        <Download size={24} /> 
+        <Utensils size={24} /> 
         <div className="text-left">
-          <div className="text-xs opacity-80">Descargar en</div>
-          <div className="text-lg leading-none">App Store</div>
+          <div className="text-xs opacity-80">Abrir</div>
+          <div className="text-lg leading-none">App de Pedidos</div>
         </div>
       </a>
       
-      <a 
-        href="https://app.inevarestobar.com.ar" 
-        target="_blank" 
-        rel="noopener noreferrer"
+      <button 
+        onClick={() => setReservaOpen(true)}
         className={cls(
-          "px-8 py-4 rounded-2xl font-bold flex items-center justify-center gap-3 transition-all transform hover:scale-105 shadow-xl",
-          turno === "dia" ? "bg-black text-white hover:bg-stone-800" : "bg-white text-black hover:bg-stone-100"
+          "px-8 py-4 rounded-2xl font-bold flex items-center justify-center gap-3 transition-all transform hover:scale-105 border-2",
+          turno === "dia" ? "border-orange-600 text-orange-600 hover:bg-orange-50" : "border-purple-500 text-purple-300 hover:bg-purple-900/20"
         )}
       >
-        <Download size={24} />
+        <Calendar size={24} />
         <div className="text-left">
-          <div className="text-xs opacity-80">Disponible en</div>
-          <div className="text-lg leading-none">Google Play</div>
+          <div className="text-xs opacity-80">Reservar</div>
+          <div className="text-lg leading-none">Una Mesa</div>
         </div>
-      </a>
+      </button>
     </div>
+    
+    <p className="text-sm opacity-70 mt-4">
+      También podés escanear el código QR con la cámara de tu celular
+    </p>
   </div>
   
   {/* QR Code Real */}
