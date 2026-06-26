@@ -11,6 +11,11 @@ import { doc, getDoc } from "firebase/firestore";
 import { db } from "@/lib/firebase";
 import { QRCodeSVG } from "qrcode.react";
 
+// ============================================
+// 🇷 BANDERA DE CONTROL - MUNDIAL ARGENTINA
+// ============================================
+const MOSTRAR_ELEMENTOS_MUNDIAL = true; // Cambiar a false para ocultar todo
+
 // --- DATOS DEL MENÚ DIURNO ---
 const menuDataDefault = {
   dia: [
@@ -360,6 +365,57 @@ const staggerContainer = {
       <AnimatePresence>
         {toast && <Toast message={toast} onClose={() => setToast("")} />}
       </AnimatePresence>
+
+      {/* ============================================
+           🇦🇷 ELEMENTOS MUNDIAL ARGENTINA
+           ============================================ */}
+      {MOSTRAR_ELEMENTOS_MUNDIAL && (
+        <>
+          {/* Badge flotante Argentina - Esquina superior izquierda */}
+          <motion.div 
+            initial={{ opacity: 0, x: -100 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ delay: 1, duration: 0.5 }}
+            className="fixed top-24 left-4 z-40 hidden md:block"
+          >
+            <div className="relative">
+              <div className="bg-gradient-to-r from-sky-400 via-white to-sky-400 p-3 rounded-2xl shadow-2xl border-2 border-yellow-400">
+                <div className="text-center">
+                  <div className="text-3xl mb-1">🇦</div>
+                  <div className="text-xs font-bold text-sky-600">Vamos Argentina</div>
+                </div>
+              </div>
+              <div className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-4 h-4 bg-yellow-400 rounded-full animate-pulse" />
+            </div>
+          </motion.div>
+
+          {/* Banner superior Mundial */}
+          <motion.div 
+            initial={{ opacity: 0, y: -50 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="fixed top-0 left-0 right-0 z-50 bg-gradient-to-r from-sky-500 via-white to-sky-500 py-2 px-4 text-center shadow-lg"
+          >
+            <div className="flex items-center justify-center gap-2 text-sky-700 font-bold text-sm md:text-base">
+              <span className="text-2xl">🏆</span>
+              <span>🇦🇷 Ineva te acompaña en el Mundial 🇦🇷</span>
+              <span className="text-2xl">⚽</span>
+            </div>
+          </motion.div>
+
+          {/* Césped animado - Esquina inferior derecha */}
+          <motion.div 
+            initial={{ opacity: 0, scale: 0 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ delay: 1.5, duration: 0.5 }}
+            className="fixed bottom-4 right-4 z-40 hidden md:block"
+          >
+            <div className="bg-gradient-to-br from-green-400 to-green-600 p-4 rounded-full shadow-2xl">
+              <div className="text-4xl">⚽</div>
+            </div>
+          </motion.div>
+        </>
+      )}
+      {/* ============================================ */}
 
       {/* --- BOTONES FLOTANTES REDES SOCIALES --- */}
       <div className="fixed right-4 top-1/2 -translate-y-1/2 z-50 flex flex-col gap-3">
